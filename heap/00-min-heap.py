@@ -12,16 +12,20 @@ class MinHeap:
         while i < l:
             left_child = i * 2
             right_child = i * 2 + 1
+            smallest = i
             
-            if left_child < l and right_child < l and self.heap[left_child] < self.heap[right_child] and self.heap[i] > self.heap[left_child]:
-                self.heap[i], self.heap[left_child] = self.heap[left_child], self.heap[i]
-                i = left_child
-            elif right_child < l and self.heap[i] > self.heap[right_child]:
-                self.heap[i], self.heap[right_child] = self.heap[right_child], self.heap[i]
-                i = right_child
-            else:
+            if left_child < l and self.heap[left_child] < self.heap[smallest]:
+                smallest = left_child 
+            
+            if right_child < l and self.heap[right_child] < self.heap[smallest]:
+                smallest = right_child
+            
+            if smallest == i:
                 break
             
+            if smallest != i:
+                self.heap[smallest], self.heap[i] = self.heap[i], self.heap[smallest]
+                i = smallest
         return
     
     def insert(self, val: int):
